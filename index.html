@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tebak Angka Seru! & Tempur Mode!</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="background-effects">
+        </div>
+
+    <div id="guessGameContainer" class="game-mode-container active">
+        <div class="container">
+            <h1 class="game-title">Tebak Angka Seru!</h1>
+            <p class="game-description">Saya sudah memikirkan sebuah angka misteri antara 1 sampai 100. Coba tebak dan temukan!</p>
+
+            <div class="input-area">
+                <input type="number" id="guessInput" placeholder="Masukkan tebakanmu..." min="1" max="100">
+                <button id="checkButton" class="btn primary-btn">Cek Jawaban</button>
+            </div>
+
+            <p id="message" class="game-message"></p>
+            <button id="resetButton" class="btn secondary-btn" style="display:none;">Mulai Ulang Game</button>
+        </div>
+    </div>
+
+    <div id="combatGameContainer" class="game-mode-container">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <button id="backToGuessButton" class="btn secondary-btn">Kembali ke Tebak Angka</button>
+    </div>
+
+
+    <div id="winOverlay" class="overlay">
+        <div class="overlay-content">
+            <h2 class="win-title">🎉 Selamat! 🎉</h2>
+            <p id="winMessage" class="win-message"></p>
+            <button class="btn close-overlay-btn">Lanjut ke Mode Tempur!</button>
+        </div>
+    </div>
+
+    <div id="loseOverlay" class="overlay">
+        <div class="overlay-content">
+            <h2 class="lose-title">😔 Game Over 😔</h2>
+            <p id="loseMessage" class="lose-message"></p>
+            <button class="btn close-overlay-btn">Coba Lagi</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

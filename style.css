@@ -1,0 +1,353 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden;
+
+    background: linear-gradient(
+        45deg,
+        #fbc2eb, /* pink muda */
+        #a6c0fe, /* biru muda */
+        #c2e9fb, /* biru langit */
+        #a18cd1, /* ungu muda */
+        #ffc3a0, /* peach */
+        #ffafbd, /* merah muda */
+        #e0c3fc, /* lavender */
+        #8fd3f4  /* biru cerah */
+    );
+    background-size: 800% 800%;
+    animation: gradientShift 40s ease infinite alternate;
+    color: #333;
+    position: relative; /* Penting untuk background-effects */
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 0%; }
+    25% { background-position: 100% 0%; }
+    50% { background-position: 100% 100%; }
+    75% { background-position: 0% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+/* --- Efek Background Dinamis (Gelembung/Bintang) --- */
+.background-effects {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Di belakang konten utama */
+    overflow: hidden; /* Pastikan partikel tidak terlihat di luar area body */
+}
+
+.particle {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.6); /* Warna putih transparan */
+    border-radius: 50%;
+    animation: floatUp 20s infinite ease-in-out alternate; /* Animasi mengambang */
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translateY(-200px) translateX(50px);
+        opacity: 0.4;
+    }
+    100% {
+        transform: translateY(-400px) translateX(0);
+        opacity: 0.8;
+    }
+}
+
+
+/* --- Container Game Utama --- */
+.container {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 60px;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    transform: translateY(-50px);
+    opacity: 0;
+    animation: fadeInSlideDown 1s ease-out forwards;
+    position: relative; /* Penting untuk animasi pesan */
+}
+
+@keyframes fadeInSlideDown {
+    0% { opacity: 0; transform: translateY(-50px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.game-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.8em;
+    color: #4A90E2;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.game-description {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* --- Input dan Tombol --- */
+.input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+input[type="number"] {
+    width: calc(100% - 30px);
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1.2em;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="number"]:focus {
+    border-color: #4A90E2;
+    box-shadow: 0 0 10px rgba(74, 144, 226, 0.3);
+}
+
+.btn {
+    padding: 14px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative; /* Untuk efek klik */
+    overflow: hidden; /* Untuk efek riak */
+}
+
+/* Efek riak/klik */
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(1) translate(-50%, -50%);
+    transition: width 0.3s ease-out, height 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.btn:active::after {
+    width: 200%; /* Membesar */
+    height: 200%; /* Membesar */
+    opacity: 1; /* Muncul */
+    transition: 0s; /* Hapus transisi saat aktif untuk efek instan */
+}
+
+
+.primary-btn {
+    background-color: #4A90E2;
+    color: white;
+}
+
+.primary-btn:hover {
+    background-color: #357ABD;
+}
+
+.secondary-btn {
+    background-color: #FF5C5C;
+    color: white;
+}
+
+.secondary-btn:hover {
+    background-color: #D32F2F;
+}
+
+.game-message {
+    margin-top: 25px;
+    font-size: 1.2em;
+    font-weight: 600;
+    min-height: 30px;
+    color: #333;
+    opacity: 0; /* Awalnya tersembunyi */
+    animation: fadeAndScaleUp 0.5s ease-out forwards; /* Animasi masuk pesan */
+    animation-delay: 0.2s; /* Sedikit delay */
+    transform: translateY(10px); /* Efek geser dari bawah */
+}
+
+/* Animasi untuk pesan saat muncul */
+@keyframes fadeAndScaleUp {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+
+/* --- Overlay Umum --- */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+}
+
+.overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.overlay-content {
+    background-color: rgba(255, 255, 255, 0.98);
+    padding: 50px 70px;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    transform: scale(0.7);
+    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    color: #333;
+    /* Hilangkan animation: fadeInScale di sini karena kita akan mengontrolnya dengan JS */
+}
+
+/* @keyframes fadeInScale sudah tidak digunakan langsung di .overlay-content */
+
+.overlay.show .overlay-content {
+    transform: scale(1);
+}
+
+.win-title, .lose-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.5em;
+    margin-bottom: 25px;
+    text-shadow: 3px 3px 5px rgba(0,0,0,0.15);
+}
+
+.win-title { color: #28A745; }
+.lose-title { color: #DC3545; }
+
+.win-message, .lose-message {
+    font-size: 1.6em;
+    color: #555;
+    margin-bottom: 35px;
+    line-height: 1.5;
+}
+
+.close-overlay-btn {
+    background-color: #6C757D;
+    color: white;
+}
+
+.close-overlay-btn:hover {
+    background-color: #5A6268;
+}
+
+/* --- Gaya Spesifik Overlay Kemenangan --- */
+#winOverlay {
+    background: linear-gradient(135deg, #a8e063, #56ab2f);
+}
+
+/* --- Gaya Spesifik Overlay Kekalahan --- */
+#loseOverlay {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+}
+
+/* --- Styling untuk Mode Game Containers --- */
+.game-mode-container {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    /* Transisi untuk perpindahan mode */
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.game-mode-container.active {
+    display: flex;
+    opacity: 1; /* Munculkan dengan transisi */
+}
+
+/* --- Styling untuk Canvas Game Tempur --- */
+#gameCanvas {
+    background-color: #000;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    display: block;
+    margin-bottom: 20px;
+}
+
+#combatGameContainer {
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* --- Responsivitas Dasar --- */
+@media (max-width: 600px) {
+    .container {
+        padding: 30px 20px;
+    }
+
+    .game-title {
+        font-size: 2.2em;
+    }
+
+    .game-description {
+        font-size: 1em;
+    }
+
+    input[type="number"], .btn {
+        font-size: 1em;
+        padding: 12px 20px;
+    }
+
+    .overlay-content {
+        padding: 30px 40px;
+    }
+
+    .win-title, .lose-title {
+        font-size: 2.5em;
+    }
+
+    .win-message, .lose-message {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 400px) {
+    .input-area {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .btn {
+        width: 100%;
+    }
+}
